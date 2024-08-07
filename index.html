@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGVH - Sistema de Gestión Virtual de Horarios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            background-image: url('your-background-image.jpg'); /* Replace with your background image URL */
+            background-size: cover;
+        }
+        .header {
+            background-color: #39a900;
+            color: white;
+            padding: 10px 0;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .footer {
+            background-color: #39a900;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header text-center">
+        <img src="/Img/logosena.webp" alt="SENA" style="width: 50px;"> <!-- Replace with your logo URL -->
+        <h1>SGVH</h1>
+        <h2>Sistema de Gestión Virtual de Horarios</h2>
+    </header>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-success btn-lg w-100 mb-3">Ver horarios</button>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Ingreso Administrativo</h5>
+                        <form>
+                            <div class="mb-3">
+                                <label for="document" class="form-label">Número de documento:</label>
+                                <input type="text" class="form-control" id="document" placeholder="Ingrese número de documento">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña:</label>
+                                <input type="password" class="form-control" id="password" placeholder="Ingrese contraseña">
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">Ingresar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Poster/noticia</h5>
+                        <p class="card-text">Contenido del poster o noticia aquí.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>GOBIERNO DE COLOMBIA</p>
+            <p>
+                <a href="#" class="text-white">Presidencia</a> |
+                <a href="#" class="text-white">MinInterior</a> |
+                <a href="#" class="text-white">MinHacienda</a> |
+                <a href="#" class="text-white">MinSalud</a> |
+                <a href="#" class="text-white">MinJusticia</a> |
+                <a href="#" class="text-white">MinDefensa</a> |
+                <!-- Add other links as necessary -->
+            </p>
+            <p>&copy; 2024 Servicio Nacional de Aprendizaje SENA</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
