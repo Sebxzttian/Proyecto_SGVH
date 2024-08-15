@@ -17,7 +17,7 @@
             background-size: cover;
         }
         .sidebar {
-            background-color: #4CAF50;
+            background-color: #39A900;
             color: white;
             height: 100%;
             padding: 20px;
@@ -32,17 +32,16 @@
         .sidebar.active {
             left: 0;
         }
-        .sidebar h1 {
-            font-size: 2rem;
-            margin-bottom: 0;
-        }
-        .sidebar h2 {
-            font-size: 1rem;
-            margin-bottom: 20px;
-        }
         .sidebar .nav-link {
             color: white;
-            padding: 8px 0;
+            padding: 10px 0;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar .nav-link i {
+            font-size: 1.5rem;
+            margin-right: 10px;
         }
         .main-content {
             flex: 1 0 auto;
@@ -53,16 +52,18 @@
             justify-content: center;
         }
         .btn-custom {
-            background-color: #4CAF50;
+            background-color: #39A900;
             border: none;
             color: white;
             padding: 15px 20px;
             font-size: 1.2rem;
             margin-bottom: 15px;
-            text-align: left;
             width: 100%;
             display: flex;
             align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-wrap: wrap;
         }
         .btn-custom:hover {
             background-color: #45a049;
@@ -72,7 +73,7 @@
             font-size: 1.5rem;
         }
         .footer {
-            background-color: #4CAF50;
+            background-color: #39A900;
             color: white;
             text-align: center;
             padding: 10px;
@@ -89,7 +90,7 @@
             top: 10px;
             left: 10px;
             z-index: 1001;
-            background-color: #4CAF50;
+            background-color: #39A900;
             color: white;
             border: none;
             padding: 10px;
@@ -99,11 +100,25 @@
             .sidebar {
                 left: -250px;
             }
+            .sidebar.active {
+                left: 0;
+            }
             .main-content {
                 margin-left: 0;
             }
+            .main-content.active {
+                margin-left: 250px;
+            }
             .menu-toggle {
                 display: block;
+            }
+            .btn-custom {
+                flex-direction: column;
+                text-align: center;
+            }
+            .btn-custom i {
+                margin-right: 0;
+                margin-bottom: 10px;
             }
         }
         @media (min-width: 769px) {
@@ -115,24 +130,21 @@
             }
         }
     </style>
-    <header class="header">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6 d-flex align-items-center">
-                    <img src="/Img/logo_sgvh_negativo.png" alt="SENA Logo" class="logo me-2"> 
-                </div>
-            </div>
-        </div>
-    </header>
 </head>
 <body>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 d-flex align-items-center">
+                <img src="/Img/logo_sgvh_negativo.png" alt="SENA Logo" class="logo me-2" style="max-width: 100%; height: auto;"> 
+            </div>
+        </div>
+    </div>
     <button class="menu-toggle" onclick="toggleSidebar()">
         <i class="bi bi-list"></i>
     </button>
     
     <div class="sidebar" id="sidebar">
-        
-        <nav>
+        <nav><br>
             <a class="nav-link" href="#"><i class="bi bi-calendar-week"></i> Horarios</a>
             <a class="nav-link" href="#"><i class="bi bi-person"></i> Instructor</a>
             <a class="nav-link" href="#"><i class="bi bi-book"></i> Curso complementario</a>
@@ -178,7 +190,7 @@
             Línea gratuita de atención al ciudadano Bogotá 3430111 – Resto del país 018000 910270<br>
             Horario de atención: lunes a viernes de 8:00 am a 5:30 pm<br>
             Correo electrónico para notificaciones judiciales: servicioalciudadano@sena.edu.co<br>
-            Todos los derechos reservados © 2024
+            Todos los derechos reservados © 2044
         </div>
     </footer>
 
@@ -188,7 +200,7 @@
             var sidebar = document.getElementById('sidebar');
             var mainContent = document.querySelector('.main-content');
             sidebar.classList.toggle('active');
-            mainContent.style.marginLeft = sidebar.classList.contains('active') ? '250px' : '0';
+            mainContent.classList.toggle('active');
         }
 
         document.querySelectorAll('.sidebar .nav-link').forEach(link => {
@@ -204,10 +216,10 @@
             var mainContent = document.querySelector('.main-content');
             if (window.innerWidth > 768) {
                 sidebar.classList.add('active');
-                mainContent.style.marginLeft = '250px';
+                mainContent.classList.remove('active');
             } else {
                 sidebar.classList.remove('active');
-                mainContent.style.marginLeft = '0';
+                mainContent.classList.remove('active');
             }
         }
 
