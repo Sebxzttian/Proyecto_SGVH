@@ -107,6 +107,21 @@
             font-size: 1rem;
             padding: 5px 0;
         }
+        .nav-link-with-arrow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-link-with-arrow span {
+            flex-grow: 1;
+        }
+        .arrow-icon {
+            transition: transform 0.3s ease;
+            margin-left: 10px;
+        }
+        .arrow-icon.active {
+            transform: rotate(90deg);
+        }
         @media (max-width: 768px) {
             .sidebar {
                 left: -250px;
@@ -161,7 +176,10 @@
             <a class="nav-link" href="#"><i class="bi bi-book"></i> Curso complementario</a>
             <a class="nav-link" href="#"><i class="bi bi-door-open"></i> Ambiente</a>
             <a class="nav-link" href="#"><i class="bi bi-list-check"></i> Programas</a>
-            <a class="nav-link" href="#" onclick="toggleSubmenu(event)"><i class="bi bi-person-badge"></i> Admin</a>
+            <a class="nav-link nav-link-with-arrow" href="/menuAdmin.html" onclick="handleAdminClick(event)">
+                <span><i class="bi bi-person-badge"></i> Admin</span>
+                <i class="bi bi-chevron-right arrow-icon" id="adminArrow"></i>
+            </a>
             <div class="submenu" id="adminSubmenu">
                 <a class="nav-link" href="#"><i class="bi bi-person-badge"></i> ADMINISTRADORES </a>
                 <a class="nav-link" href="#"><i class="bi bi-calendar-plus"></i> CARGAR HORARIOS </a>
@@ -222,12 +240,24 @@
         function toggleSubmenu(event) {
             event.preventDefault();
             var submenu = document.getElementById('adminSubmenu');
+            var arrow = document.getElementById('adminArrow');
             submenu.classList.toggle('active');
+            arrow.classList.toggle('active');
+        }
+
+        function handleAdminClick(event) {
+            if (event.target.classList.contains('arrow-icon') || event.target.closest('.arrow-icon')) {
+                toggleSubmenu(event);
+            } else {
+                // Aquí puedes añadir el código para dirigir a la página de Admin
+                console.log("Dirigiendo a la página de Admin");
+                // window.location.href = "pagina-admin.html";
+            }
         }
 
         document.querySelectorAll('.sidebar .nav-link').forEach(link => {
             link.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
+                if (window.innerWidth <= 768 && !link.classList.contains('nav-link-with-arrow')) {
                     toggleSidebar();
                 }
             });
