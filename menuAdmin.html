@@ -96,6 +96,17 @@
             padding: 10px;
             display: none;
         }
+        .submenu {
+            display: none;
+            padding-left: 20px;
+        }
+        .submenu.active {
+            display: block;
+        }
+        .submenu .nav-link {
+            font-size: 1rem;
+            padding: 5px 0;
+        }
         @media (max-width: 768px) {
             .sidebar {
                 left: -250px;
@@ -150,8 +161,13 @@
             <a class="nav-link" href="#"><i class="bi bi-book"></i> Curso complementario</a>
             <a class="nav-link" href="#"><i class="bi bi-door-open"></i> Ambiente</a>
             <a class="nav-link" href="#"><i class="bi bi-list-check"></i> Programas</a>
-            <a class="nav-link" href="#"><i class="bi bi-person-badge"></i> Admin</a>
-            <a class="nav-link" href="#"><i class="bi bi-download"></i> Descargar</a>
+            <a class="nav-link" href="#" onclick="toggleSubmenu(event)"><i class="bi bi-person-badge"></i> Admin</a>
+            <div class="submenu" id="adminSubmenu">
+                <a class="nav-link" href="#"><i class="bi bi-person-badge"></i> ADMINISTRADORES </a>
+                <a class="nav-link" href="#"><i class="bi bi-calendar-plus"></i> CARGAR HORARIOS </a>
+                <a class="nav-link" href="#"><i class="bi bi-pencil-square"></i> EDITAR INFORMACION </a>
+                <a class="nav-link" href="#"><i class="bi bi-calendar-check"></i> EDITAR HORARIOS </a>
+            </div>
         </nav>
     </div>
 
@@ -201,6 +217,12 @@
             var mainContent = document.querySelector('.main-content');
             sidebar.classList.toggle('active');
             mainContent.classList.toggle('active');
+        }
+
+        function toggleSubmenu(event) {
+            event.preventDefault();
+            var submenu = document.getElementById('adminSubmenu');
+            submenu.classList.toggle('active');
         }
 
         document.querySelectorAll('.sidebar .nav-link').forEach(link => {

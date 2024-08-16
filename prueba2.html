@@ -1,98 +1,79 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SENA SGVH Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGVH - Sistema de Gestión Virtual de Horarios</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <style>
+        html, body {
+            height: 100%;
+        }
         body {
-            background-image: url('/Img/Sena-Garzón.jpg');
-            background-size: cover;
-            background-position: center;
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            font-size: 18px;
+            background: url('/Img/Sena-Garzón.jpg') no-repeat center center fixed;
+            background-size: cover;
         }
-        .header {
-            background-color: #6cbf22;
+        .sidebar {
+            background-color: #39A900;
             color: white;
-            padding: 15px 0;
+            height: 100%;
+            padding: 20px;
+            position: fixed;
+            left: -250px;
+            top: 0;
+            width: 250px;
+            transition: left 0.3s ease-in-out;
+            z-index: 1000;
+            overflow-y: auto;
         }
-        .header .logo {
-            max-height: 80px;
+        .sidebar.active {
+            left: 0;
         }
-        .header .ministerio-logo {
-            max-height: 60px;
+        .sidebar .nav-link {
+            color: white;
+            padding: 10px 0;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar .nav-link i {
+            font-size: 1.5rem;
+            margin-right: 10px;
         }
         .main-content {
-            flex-grow: 1;
+            flex: 1 0 auto;
+            padding: 20px;
+            transition: margin-left 0.3s ease-in-out;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px 0;
         }
-        .login-container {
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 30px;
-            width: 100%;
-            max-width: 600px;
-        }
-        .btn-success {
-            background-color: #6cbf22;
-            border-color: #6cbf22;
+        .btn-custom {
+            background-color: #39A900;
+            border: none;
+            color: white;
+            padding: 15px 20px;
             font-size: 1.2rem;
-            padding: 12px 20px;
-        }
-        .btn-success:hover {
-            background-color: #5aa41d;
-            border-color: #5aa41d;
-        }
-        .poster-container {
-            background-color: #f8f9fa;
-            border-radius: 15px;
-            padding: 30px;
-            margin-left: 30px;
+            margin-bottom: 15px;
             width: 100%;
-            max-width: 400px;
-            height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
+            text-align: center;
+            flex-wrap: wrap;
+        }
+        .btn-custom:hover {
+            background-color: #45a049;
+        }
+        .btn-custom i {
+            margin-right: 10px;
             font-size: 1.5rem;
         }
-        .gobierno-bar {
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            padding: 10px 15px;
-            margin: 20px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .gobierno-bar .row {
-            align-items: center;
-        }
-        .gobierno-bar img {
-            max-height: 40px;
-        }
-        .gobierno-bar .ministerios {
-            font-size: 0.8rem;
-            columns: 4;
-            column-gap: 20px;
-        }
-        .gobierno-bar .ministerios a {
-            color: #0056b3;
-            text-decoration: none;
-            display: block;
-            padding: 2px 0;
-        }
-        .gobierno-bar .ministerios a:hover {
-            text-decoration: underline;
-        }
         .footer {
-            background-color: #5aa41d;
+            background-color: #39A900;
             color: white;
             text-align: center;
             padding: 10px;
@@ -100,130 +81,172 @@
             font-size: 0.8rem;
             flex-shrink: 0;
         }
-        .social-icons .bi {
-            font-size: 1.5rem;
-            margin-right: 15px;
-            color: white;
+        .button-container {
+            width: 100%;
+            max-width: 800px;
         }
-        .form-control {
-            font-size: 1.1rem;
-            padding: 12px;
+        .menu-toggle {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1001;
+            background-color: #39A900;
+            color: white;
+            border: none;
+            padding: 10px;
+            display: none;
+        }
+        .submenu {
+            display: none;
+            padding-left: 20px;
+        }
+        .submenu.active {
+            display: block;
+        }
+        .submenu .nav-link {
+            font-size: 1rem;
+            padding: 5px 0;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                left: -250px;
+            }
+            .sidebar.active {
+                left: 0;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .main-content.active {
+                margin-left: 250px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .btn-custom {
+                flex-direction: column;
+                text-align: center;
+            }
+            .btn-custom i {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+        @media (min-width: 769px) {
+            .sidebar {
+                left: 0;
+            }
+            .main-content {
+                margin-left: 250px;
+            }
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-8 d-flex align-items-center">
-                    <img src="/Img/logo_sgvh_negativo.png" alt="SENA Logo" class="logo me-3">
-                </div>
-                <div class="col-md-4 text-end">
-                    <img src="/Img/ministeriodetrbajo.jfif" alt="Ministerio de Trabajo Logo" class="ministerio-logo">
-                </div>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 d-flex align-items-center">
+                <img src="/Img/logo_sgvh_negativo.png" alt="SENA Logo" class="logo me-2" style="max-width: 100%; height: auto;"> 
             </div>
         </div>
-    </header>
+    </div>
+    <button class="menu-toggle" onclick="toggleSidebar()">
+        <i class="bi bi-list"></i>
+    </button>
+    
+    <div class="sidebar" id="sidebar">
+        <nav><br>
+            <a class="nav-link" href="#"><i class="bi bi-calendar-week"></i> Horarios</a>
+            <a class="nav-link" href="#"><i class="bi bi-person"></i> Instructor</a>
+            <a class="nav-link" href="#"><i class="bi bi-book"></i> Curso complementario</a>
+            <a class="nav-link" href="#"><i class="bi bi-door-open"></i> Ambiente</a>
+            <a class="nav-link" href="#"><i class="bi bi-list-check"></i> Programas</a>
+            <a class="nav-link" href="#" onclick="toggleSubmenu(event)"><i class="bi bi-person-badge"></i> Admin</a>
+            <div class="submenu" id="adminSubmenu">
+                <a class="nav-link" href="#"><i class="bi bi-person-badge"></i> ADMINISTRADORES </a>
+                <a class="nav-link" href="#"><i class="bi bi-calendar-plus"></i> CARGAR HORARIOS </a>
+                <a class="nav-link" href="#"><i class="bi bi-pencil-square"></i> EDITAR INFORMACION </a>
+                <a class="nav-link" href="#"><i class="bi bi-calendar-check"></i> EDITAR HORARIOS </a>
+            </div>
+        </nav>
+    </div>
 
     <div class="main-content">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-7">
-                    <div class="login-container">
-                        <div class="d-grid gap-3 mb-4">
-                            <a href="#" class="btn btn-success btn-lg">
-                                <i class="bi bi-calendar-week me-2"></i> Ver horarios
-                            </a>
-                        </div>
-                        <form>
-                            <h4 class="mb-4">Ingreso Administrativo</h4>
-                            <div class="mb-4">
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                                    <input type="text" class="form-control" placeholder="Número de documento" required>
-                                </div>
-                            </div>
-                            <div class="mb-4">
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
-                                    <input type="password" class="form-control" placeholder="Contraseña" required>
-                                </div>
-                            </div>
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-success btn-lg">
-                                    <i class="bi bi-box-arrow-in-right me-2"></i> Ingresar
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+        <div class="button-container">
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-custom">
+                        <i class="bi bi-person-badge"></i> ADMINISTRADORES
+                    </button>
                 </div>
-                <div class="col-lg-5">
-                    <div class="poster-container">
-                        <h3>Poster/noticia</h3>
-                    </div>
+                <div class="col-md-6">
+                    <button class="btn btn-custom">
+                        <i class="bi bi-calendar-plus"></i> CARGAR HORARIOS
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-custom">
+                        <i class="bi bi-pencil-square"></i> EDITAR INFORMACION
+                    </button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-custom">
+                        <i class="bi bi-calendar-check"></i> EDITAR HORARIOS
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-
-    <div class="gobierno-bar-wrapper">
-        <div class="container">
-            <div class="gobierno-bar">
-                <div class="row align-items-center">
-                    <div class="col-md-3">
-                        <img src="/Img/ministeriodetrbajo.jfif" alt="Ministerio del Trabajo Logo" class="img-fluid">
-                    </div>
-                    <div class="col-md-9">
-                        <div class="ministerios">
-                            <a href="#">Presidencia</a>
-                            <a href="#">Vicepresidencia</a>
-                            <a href="#">MinDefensa</a>
-                            <a href="#">MinAgricultura</a>
-                            <a href="#">MinInterior</a>
-                            <a href="#">MinRelaciones</a>
-                            <a href="#">MinCultura</a>
-                            <a href="#">MinTrabajo</a>
-                            <a href="#">MinComercio</a>
-                            <a href="#">MinEducación</a>
-                            <a href="#">MinVivienda</a>
-                            <a href="#">MinAmbiente</a>
-                            <a href="#">MinTransporte</a>
-                            <a href="#">MinTic</a>
-                            <a href="#">MinSalud</a>
-                            <a href="#">MinJusticia</a>
-                            <a href="#">MinMinas</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-         
-    
     <footer class="footer">
         <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    Servicio Nacional de Aprendizaje SENA – Dirección General Calle 57 No. 8-69, Bogotá D.C – PBX (57 1) 5461500<br>
-                    Línea gratuita de atención al ciudadano Bogotá 3430111 – Resto del país 018000 910270<br>
-                    Horario de atención: lunes a viernes de 8:00 am a 5:30 pm<br>
-                    Correo electrónico para notificaciones judiciales: servicioalciudadano@sena.edu.co<br>
-                    Todos los derechos reservados © 2024
-                </div>
-                <div class="col-md-4">
-                    <div class="social-icons">
-                        <a href="#"><i class="bi bi-instagram"></i></a>
-                        <a href="#"><i class="bi bi-facebook"></i></a>
-                        <a href="#"><i class="bi bi-twitter"></i></a>
-                        <a href="#"><i class="bi bi-youtube"></i></a>
-                        <a href="#"><i class="bi bi-linkedin"></i></a>
-                    </div>
-                </div>
-            </div>
+            Servicio Nacional de Aprendizaje SENA – Dirección General Calle 57 No. 8-69, Bogotá D.C – PBX (57 1) 5461500<br>
+            Línea gratuita de atención al ciudadano Bogotá 3430111 – Resto del país 018000 910270<br>
+            Horario de atención: lunes a viernes de 8:00 am a 5:30 pm<br>
+            Correo electrónico para notificaciones judiciales: servicioalciudadano@sena.edu.co<br>
+            Todos los derechos reservados © 2044
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById('sidebar');
+            var mainContent = document.querySelector('.main-content');
+            sidebar.classList.toggle('active');
+            mainContent.classList.toggle('active');
+        }
+
+        function toggleSubmenu(event) {
+            event.preventDefault();
+            var submenu = document.getElementById('adminSubmenu');
+            submenu.classList.toggle('active');
+        }
+
+        document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+            });
+        });
+
+        function adjustLayout() {
+            var sidebar = document.getElementById('sidebar');
+            var mainContent = document.querySelector('.main-content');
+            if (window.innerWidth > 768) {
+                sidebar.classList.add('active');
+                mainContent.classList.remove('active');
+            } else {
+                sidebar.classList.remove('active');
+                mainContent.classList.remove('active');
+            }
+        }
+
+        window.addEventListener('load', adjustLayout);
+        window.addEventListener('resize', adjustLayout);
+    </script>
 </body>
 </html>
