@@ -169,20 +169,30 @@
     
     <div class="sidebar" id="sidebar">
         <nav><br>
-            <a class="nav-link" href="#"><i class="bi bi-calendar-week"></i> Horarios</a>
-            <a class="nav-link" href="#"><i class="bi bi-person"></i> Instructor</a>
-            <a class="nav-link" href="#"><i class="bi bi-book"></i> Curso complementario</a>
-            <a class="nav-link" href="#"><i class="bi bi-door-open"></i> Ambiente</a>
-            <a class="nav-link" href="#"><i class="bi bi-list-check"></i> Programas</a>
-            <a class="nav-link nav-link-with-arrow" href="/menuAdmin.html" onclick="handleAdminClick(event)">
-                <span><i class="bi bi-person-badge"></i> Admin</span>
-                <i class="bi bi-chevron-right arrow-icon" id="adminArrow"></i>
-            </a>
+            <div class="nav-link-with-arrow">
+                <a class="nav-link" href="#">
+                    <span><i class="bi bi-calendar-week"></i> Horarios</span>
+                </a>
+                <i class="bi bi-chevron-right arrow-icon" id="horariosArrow" onclick="toggleSubmenu(event, 'horarios')"></i>
+            </div>
+            <div class="submenu" id="horariosSubmenu">
+                <a class="nav-link" href="#"><i class="bi bi-person"></i> INSTRUCTOR</a>
+                <a class="nav-link" href="#"><i class="bi bi-book"></i> CURSO COMPLEMENTARIO</a>
+                <a class="nav-link" href="#"><i class="bi bi-door-open"></i> AMBIENTE</a>
+                <a class="nav-link" href="#"><i class="bi bi-list-check"></i> PROGRAMAS</a>
+            </div>
+
+            <div class="nav-link-with-arrow">
+                <a class="nav-link" href="/menuAdmin.html">
+                    <span><i class="bi bi-person-badge"></i> Admin</span>
+                </a>
+                <i class="bi bi-chevron-right arrow-icon" id="adminArrow" onclick="toggleSubmenu(event, 'admin')"></i>
+            </div>
             <div class="submenu" id="adminSubmenu">
-                <a class="nav-link" href="/administradores.html"><i class="bi bi-person-badge"></i> ADMINISTRADORES </a>
-                <a class="nav-link" href="#"><i class="bi bi-calendar-plus"></i> CARGAR HORARIOS </a>
-                <a class="nav-link" href="#"><i class="bi bi-pencil-square"></i> EDITAR INFORMACION </a>
-                <a class="nav-link" href="/edithorarios.html"><i class="bi bi-calendar-check"></i> EDITAR HORARIOS </a>
+                <a class="nav-link" href="/administradores.html"><i class="bi bi-person-badge"></i> ADMINISTRADORES</a>
+                <a class="nav-link" href="/cargarhorarios.html"><i class="bi bi-calendar-plus"></i> CARGAR HORARIOS</a>
+                <a class="nav-link" href="#"><i class="bi bi-pencil-square"></i> EDITAR INFORMACION</a>
+                <a class="nav-link" href="/edithorarios.html"><i class="bi bi-calendar-check"></i> EDITAR HORARIOS</a>
             </div>
         </nav>
     </div>
@@ -238,31 +248,29 @@
             mainContent.classList.toggle('active');
         }
 
-        function toggleSubmenu(event) {
-            event.preventDefault();
-            var submenu = document.getElementById('adminSubmenu');
-            var arrow = document.getElementById('adminArrow');
+        function toggleSubmenu(event, submenuId) {
+            event.stopPropagation();
+            var submenu = document.getElementById(submenuId + 'Submenu');
+            var arrow = document.getElementById(submenuId + 'Arrow');
+            
+            // Close all submenus
+            document.querySelectorAll('.submenu').forEach(sub => {
+                if (sub.id !== submenuId + 'Submenu') {
+                    sub.classList.remove('active');
+                }
+            });
+            document.querySelectorAll('.arrow-icon').forEach(arr => {
+                if (arr.id !== submenuId + 'Arrow') {
+                    arr.classList.remove('active');
+                }
+            });
+
+            // Toggle the clicked submenu
             submenu.classList.toggle('active');
             arrow.classList.toggle('active');
         }
 
-        function handleAdminClick(event) {
-            if (event.target.classList.contains('arrow-icon') || event.target.closest('.arrow-icon')) {
-                toggleSubmenu(event);
-            } else {
-                // Aquí puedes añadir el código para dirigir a la página de Admin
-                console.log("Dirigiendo a la página de Admin");
-                // window.location.href = "pagina-admin.html";
-            }
-        }
-
-        document.querySelectorAll('.sidebar .nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth <= 768 && !link.classList.contains('nav-link-with-arrow')) {
-                    toggleSidebar();
-                }
-            });
-        });
+        document.getElementById('menu-toggle').addEventListener('click', toggleSidebar);
 
         function adjustLayout() {
             var sidebar = document.getElementById('sidebar');
